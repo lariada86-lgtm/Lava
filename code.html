@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selamat Ulang Tahun, Alea!</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #ff69b4, #ffb6c1);
+            color: #fff;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1, h2 {
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        p {
+            font-size: 18px;
+            margin: 20px 0;
+            line-height: 1.5;
+        }
+        button {
+            background: #ff1493;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 25px;
+            margin: 10px;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #ff69b4;
+        }
+        .start-screen {
+            display: block;
+        }
+        .main-content {
+            display: none;
+        }
+        .flipbook {
+            perspective: 1000px;
+            margin: 20px auto;
+            width: 300px;
+            height: 400px;
+            position: relative;
+        }
+        .page {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            backface-visibility: hidden;
+            transition: transform 0.6s;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            display: none; /* Sembunyikan semua halaman kecuali yang aktif */
+        }
+        .page.active {
+            display: block;
+        }
+        .page.front {
+            background: #fff;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .page.back {
+            background: #fff;
+            color: #333;
+            transform: rotateY(180deg);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .page.flipped .front {
+            transform: rotateY(-180deg);
+        }
+        .page.flipped .back {
+            transform: rotateY(0deg);
+        }
+        img {
+            max-width: 90%;
+            max-height: 70%;
+            border-radius: 5px;
+        }
+        .video {
+            display: none;
+            margin-top: 30px;
+        }
+        video {
+            width: 100%;
+            max-width: 560px;
+            height: 315px;
+            border-radius: 10px;
+        }
+        @media (max-width: 600px) {
+            .flipbook {
+                width: 250px;
+                height: 330px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="start-screen">
+            <h1>Selamat Ulang Tahun, Alea! 🎉</h1>
+            <p>Hari ini adalah hari spesialmu, Alea! Semoga tahun ini penuh kebahagiaan, cinta, dan impian yang tercapai. Klik tombol di bawah untuk memulai perjalanan kenangan kita bersama. 😊</p>
+            <button id="startBtn">Mulai</button>
+        </div>
+        
+        <div class="main-content">
+            <h2>Happy Birthday, Sayang!</h2>
+            <div class="flipbook">
+                <div class="page active" id="page1">
+                    <div class="front">
+                        <img src="sayangku1.jpg" alt="Foto kenangan spesial dengan Alea">
+                    </div>
+                    <div class="back">
+                     
+                    </div>
+                </div>
+                <div class="page" id="page2">
+                    <div class="front">
+                        <img src="lea 1.jpg" alt="Foto romantis bersama Alea">
+                    </div>
+                    <div class="back">
+                        <p>my love😘</p>
+                    </div>
+                </div>
+                <div class="page" id="page3">
+                    <div class="front">
+                        <img src="Adik1.jpg" alt="my">
+                    </div>
+                    <div class="back">
+                        
+                    </div>
+                </div>
+            </div>
+            <button id="flipBtn">Balik Halaman</button>
+            
+            <div class="video">
+                <video controls>
+                    <source src="love.mp4" type="video/mp4">
+                    Browser Anda tidak mendukung tag video.
+                </video>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const startBtn = document.getElementById('startBtn');
+        const mainContent = document.querySelector('.main-content');
+        const startScreen = document.querySelector('.start-screen');
+        const flipBtn = document.getElementById('flipBtn');
+        const pages = document.querySelectorAll('.page');
+        const video = document.querySelector('.video');
+        
+        let currentPage = 0;
+        
+        startBtn.addEventListener('click', () => {
+            startScreen.style.display = 'none';
+            mainContent.style.display = 'block';
+            pages[currentPage].classList.add('active'); // Tampilkan halaman pertama
+        });
+        
+        flipBtn.addEventListener('click', () => {
+            if (currentPage < pages.length) {
+                pages[currentPage].classList.add('flipped');
+                pages[currentPage].classList.remove('active'); // Sembunyikan halaman saat ini
+                currentPage++;
+                if (currentPage < pages.length) {
+                    pages[currentPage].classList.add('active'); // Tampilkan halaman berikutnya
+                } else {
+                    flipBtn.style.display = 'none';
+                    video.style.display = 'block';
+                }
+            }
+        });
+    </script>
+</body>
+</html>
